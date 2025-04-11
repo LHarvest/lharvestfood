@@ -116,7 +116,7 @@
 
             cartDiv.innerHTML += `
                 <p>
-                    ${item.product.name_cn}${optionText} - ${item.quantity}${unit} - RM${item.product.price}/${unit} - 小计 Subtotal: RM${itemTotal.toFixed(2)}
+                    ${item.product.name_cn} ${item.product.name_en} ${optionText} | ${item.quantity}${unit} \n 小计 Subtotal: RM${itemTotal.toFixed(2)}
                     <br>
                     <input type="number" value="${item.quantity}" min="0" id="quantity_${item.product.id}_${index}" style="width: 60px;">
                     <button onclick="updateItemQuantity(${index})">更新数量 Edit</button>
