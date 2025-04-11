@@ -176,7 +176,7 @@ function submitOrder() {
         return `${item.product.name_cn}${optionText} - ${item.quantity}${unit}`;
     });
 
-    const orderMessage = `订单详情 Order Details:\n\n${orderDetails.join("\n")}\n\n姓名 Name: ${name}\n联系方式 Contact: ${contact}`;
+    const orderMessage = `订单详情 Order Details:\n\n${orderDetails.join("\n")}\n\n姓名 Name: ${name}\n联系方式 Contact: ${contact}\n公司名字 Company: ${companyName}\n配送地址 Delivery Address: ${deliveryAddress}`;
     const whatsappLink = `https://wa.me/60125419137?text=${encodeURIComponent(orderMessage)}`;
 
     window.location.href = whatsappLink;
