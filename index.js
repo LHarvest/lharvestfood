@@ -1,6 +1,6 @@
 
 const products = [
-    { id: 1, name_cn: "整鸡", name_en: "Whole Chicken", price: 20, unit: "bird", options: ["Fresh", "Frozen"], image: "images/Whole Chicken.jpeg" },
+    { id: 1, name_cn: "整鸡", name_en: "Whole Chicken", price: 20, unit: "bird", options: ["Fresh", "Frozen"], size: ["小 Small: 1.5kg - 1.8kg", "中 Medium: 1.8kg - 2.2kg", "大 Large: 2.2kg - 2.5kg"],image: "images/Whole Chicken.jpeg" },
     { id: 2, name_cn: "整鸡(无头、脚、内脏)", name_en: "Whole Chicken Super", price: 18, unit: "bird", image: "images/Whole Chicken.jpeg" },
     { id: 3, name_cn: "菜园鸡", name_en: "Kampung Chicken", price: 22, unit: "bird", image: "images/Whole Kampung Chicken.jpeg" },
     { id: 4, name_cn: "鸡三节翅", name_en: "Three Joint Wing", price: 20, unit: "kg", options: ["Fresh", "Frozen"], image: "images/Chicken Three Joint Wing.jpeg" },
@@ -51,11 +51,22 @@ products.forEach(product => {
                 `;
     }
 
+    let sizeSelect = "";
+    if (product.sizes) {
+        sizeSelect = `
+            <label>选择大小 Select Size:</label>
+            <select id="size_${product.id}">
+                ${product.sizes.map(size => `<option value="${size}">${size}</option>`).join("")}
+            </select>
+        `;
+    }
+
     div.innerHTML = `
                 <h3>${product.name_cn}<br>${product.name_en}</h3>
                 <img src="${product.image}" alt="${product.name}" width="200" height="200">
                 <!-- <p>价格 Price: RM${product.price}/${product.unit}</p> -->
                 ${optionSelect}
+                ${sizeSelect}
                 <input type="text" id="kg_${product.id}" placeholder="${product.unit}" inputmode="decimal" pattern="^[0-9]*\.?[0-9]+$">
 
                 <br>    
@@ -73,8 +84,13 @@ function addToCart(productId) {
     }
 
     const product = products.find(p => p.id === productId);
+
     const optionSelect = document.getElementById(`option_${productId}`);
     const selectedOption = optionSelect ? optionSelect.value : null;
+
+    const sizeSelect = document.getElementById(`size_${productId}`);
+    const selectedSize = sizeSelect ? sizeSelect.value : null;
+
     const itemInCart = cart.find(item => item.product.id === productId && item.option === selectedOption);
 
     if (itemInCart) {
@@ -83,7 +99,8 @@ function addToCart(productId) {
         cart.push({
             product,
             quantity: parseFloat(kgInput),
-            option: selectedOption
+            option: selectedOption,
+            size: selectedSize
         });
     }
 
@@ -113,10 +130,11 @@ function updateCart() {
         const itemTotal = item.product.price * item.quantity;
         const unit = item.product.unit;
         const optionText = item.option ? ` (${item.option})` : "";
+        const sizeText = item.size ? ` (${item.size})` : "";
 
         cartDiv.innerHTML += `
                 <p>
-                    ${item.product.name_cn} ${item.product.name_en} ${optionText} [ ${item.quantity}${unit} ]
+                    ${item.product.name_cn} ${item.product.name_en} ${optionText} ${sizeText} [ ${item.quantity}${unit} ]
                     <br>
                     <input type="number" value="${item.quantity}" min="0" id="quantity_${item.product.id}_${index}" style="width: 60px;">
                     <button onclick="updateItemQuantity(${index})">更新数量 Edit</button>
@@ -175,7 +193,7 @@ function submitOrder() {
     const orderDetails = cart.map(item => {
         const unit = item.product.unit;
         const optionText = item.option ? ` (${item.option})` : "";
-        return `${item.product.name_cn}${optionText} - ${item.quantity}${unit}`;
+        return `${item.product.name_cn} ${item.product.name_en} ${optionText} ${sizeText} - ${item.quantity}${unit}`;
     });
 
     const orderMessage = `订单详情 Order Details:\n\n${orderDetails.join("\n")}\n\n姓名 Name: ${name}\n联系方式 Contact: ${contact}\n公司名字 Company: ${companyName}\n配送地址 Delivery Address: ${deliveryAddress}`;
