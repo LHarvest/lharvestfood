@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L Harvest Food</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>L Harvest Food</h1>
+        <div class="menu" id="menu"></div>
+    </div>
+
+    <div id="cartButton" class="cart-button" onclick="toggleCart()">
+        🛒 购物车 Cart
+    </div>
+
+    <div id="cartPopup" class="cart-popup">
+        <div class="cart-content">
+            <h2>🛒 购物车内容 Cart Details</h2>
+            <div id="cart"></div>
+            <div class="cart-buttons">
+                <button onclick="placeOrder()">✅ 确认下单 Place Order</button>
+                <button onclick="toggleCart()">❌ 关闭 Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="qrcodeContainer">
+        <h2>扫描二维码扫码下单 Scan QR Code to Order</h2>
+        <div id="qrcode"></div>
+    </div>
+
+
+    <script src="../scripts/index.js"></script>
+</body>
+</html>
