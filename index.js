@@ -164,9 +164,11 @@ function closeInfoPopup() {
 function submitOrder() {
     const name = document.getElementById("customerName").value.trim();
     const contact = document.getElementById("customerContact").value.trim();
+    const companyName = document.getElementById("companyName").value.trim();
+    const deliveryAddress = document.getElementById("deliveryAddress").value.trim();
 
-    if (!name || !contact) {
-        alert("请填写完整的名字和联系方式。\nPlease fill in your name and contact info.");
+    if (!name || !contact || !companyName || !deliveryAddress) {
+        alert("请填写完整的名字、联系方式、公司名字和配送地址。\nPlease fill in your name, contact info, company name, and delivery address.");
         return;
     }
 
