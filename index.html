@@ -29,9 +29,20 @@
         </div>
     </div>
 
-    <div id="qrcodeContainer">
-        <h2>扫描二维码扫码下单 Scan QR Code to Order</h2>
-        <div id="qrcode"></div>
+    <div id="infoPopup" class="cart-popup">
+        <div class="cart-content">
+            <h2>请填写您的资料<br>Enter Your Info</h2>
+            <input type="text" id="customerName" placeholder="名字 Name">
+            <br><br>
+            <input type="text" id="customerContact" placeholder="联系方式 Contact Number">
+            <br><br>
+            <input type="text" id="companyName" placeholder="公司名字 Company Name">
+            <br><br>
+            <input type="text" id="deliveryAddress" placeholder="配送地址 Delivery Address">
+            <br><br>
+            <button onclick="submitOrder()">发送订单 Send Order</button>
+            <button onclick="closeInfoPopup()">取消 Cancel</button>
+        </div>
     </div>
 
 
